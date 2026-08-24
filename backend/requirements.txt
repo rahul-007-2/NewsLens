@@ -8,8 +8,5 @@ joblib==1.4.2
 fastapi==0.111.0
 uvicorn==0.30.1
 
-# Optional: CORS middleware for frontend-backend communication
+# Optional: CORS / file upload support
 python-multipart==0.0.9
-
-# Development utilities
-pytest==8.2.2
