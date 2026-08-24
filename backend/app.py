@@ -9,7 +9,7 @@ app = FastAPI()
 # Enable CORS for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["https://newslens-mxdh.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -27,7 +27,7 @@ class PredictRequest(BaseModel):
     text: str
     model: str  # which model to use
 
-@app.post("/predict")
+@app.post("/")
 def predict(request: PredictRequest):
     if request.model not in models:
         return {"error": "Invalid model choice"}
