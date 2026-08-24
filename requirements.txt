@@ -1,0 +1,15 @@
+# Core ML + Data
+scikit-learn==1.5.1
+pandas==2.2.2
+numpy==1.26.4
+joblib==1.4.2
+
+# Backend (FastAPI + Uvicorn)
+fastapi==0.111.0
+uvicorn==0.30.1
+
+# Optional: CORS middleware for frontend-backend communication
+python-multipart==0.0.9
+
+# Development utilities
+pytest==8.2.2
