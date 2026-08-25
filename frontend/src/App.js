@@ -29,37 +29,52 @@ function App() {
   ];
 
   const handleSubmit = async () => {
-    if (!text.trim()) return;
+  if (!text.trim()) return;
 
-    setLoading(true);
-    setResult(null);
+  console.log("Sending prediction request...");
+  console.log("API URL:", "https://newslens-mxdh.onrender.com/predict");
+  console.log("Model:", model);
 
-    try {
-      const response = await fetch("https://newslens-mxdh.onrender.com/predict", {
+  try {
+    const response = await fetch(
+      "https://newslens-mxdh.onrender.com/predict",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text,
-          model,
+          text: text,
+          model: model,
         }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Prediction failed");
       }
+    );
 
-      const data = await response.json();
-      setResult(data);
-    } catch (error) {
-      setResult({
-        error: "Unable to connect to the prediction server.",
-      });
-    } finally {
-      setLoading(false);
+    console.log("Response status:", response.status);
+    console.log("Response OK:", response.ok);
+
+    const responseText = await response.text();
+    console.log("Raw response:", responseText);
+
+    if (!response.ok) {
+      throw new Error(
+        `Backend returned ${response.status}: ${responseText}`
+      );
     }
-  };
+
+    const data = JSON.parse(responseText);
+
+    console.log("Prediction:", data);
+
+    setResult(data);
+  } catch (error) {
+    console.error("FULL PREDICTION ERROR:", error);
+
+    setResult({
+      error: error.message,
+    });
+  }
+};
 
   const selectedModel = models.find((item) => item.id === model);
 
