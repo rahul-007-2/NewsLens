@@ -27,7 +27,14 @@ class PredictRequest(BaseModel):
     text: str
     model: str  # which model to use
 
-@app.post("/")
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "service": "NewsLens API"
+    }
+
+@app.post("/predict")
 def predict(request: PredictRequest):
     if request.model not in models:
         return {"error": "Invalid model choice"}
